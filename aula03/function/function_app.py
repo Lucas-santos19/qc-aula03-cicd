@@ -80,3 +80,4 @@ def health(req: func.HttpRequest) -> func.HttpResponse:
         json.dumps({"status": "ok", "service": "qc-catalogo", "source": "blob"}),
         mimetype="application/json",
     )
+# Deploy validado via func CLI no CI
