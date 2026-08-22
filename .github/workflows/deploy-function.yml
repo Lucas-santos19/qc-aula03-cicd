@@ -48,3 +48,5 @@ jobs:
         with:
           app-name: func-qc-p6p9bw
           package: aula03/function
+          sku: flexconsumption
+          remote-build: true
