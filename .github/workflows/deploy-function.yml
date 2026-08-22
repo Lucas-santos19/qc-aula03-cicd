@@ -43,10 +43,13 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Deploy da Function
-        uses: Azure/functions-action@v1
-        with:
-          app-name: func-qc-p6p9bw
-          package: aula03/function
-          sku: flexconsumption
-          remote-build: true
+      - name: Instalar Azure Functions Core Tools
+        run: |
+          curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+          echo "deb [signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/microsoft-ubuntu-jammy-prod jammy main" | sudo tee /etc/apt/sources.list.d/microsoft.list
+          sudo apt-get update
+          sudo apt-get install -y azure-functions-core-tools-4
+
+      - name: Deploy da Function via func CLI
+        working-directory: aula03/function
+        run: func azure functionapp publish func-qc-p6p9bw --python
